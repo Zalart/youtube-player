@@ -1,0 +1,15 @@
+.card {
+    display: flex;
+    font-size: 14px;
+    margin: 10px;
+}
+
+.card img {
+    width: 100px;
+    height: 60px;
+    margin: 10px;
+}
+
+.card p {
+    text-align: center;
+}

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import "./Card.css";
 // const Card = ({ source, previewImage, itemName }) => {
 //     return (
 //         <div className="card">
@@ -17,12 +18,12 @@ class Card extends Component {
         super(props);
     }
     render() {
+        const { handleSetMovie, itemName, previewImage, id } = this.props;
         return (
-            <div className="card">
-                <a className="cardLink" href={props.source}>
-                    <img className="previewImage" src={previewImage} alt="img" />
-                    <p className="itemName">{itemName}</p>
-                </a>
+            <div className="card" onClick={() => handleSetMovie(id)}>
+                <img src={previewImage} alt="img" />
+                <p className="itemName">{itemName}</p>
+
             </div>
         );
     }
