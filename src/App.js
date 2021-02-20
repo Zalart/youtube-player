@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import './App.css';
 import CardList from "./Components/CardList";
+//import youtube from "./Components/youtube";
 import data from "./Components/data";
 import Player from "./Components/Player";
 
@@ -10,12 +11,11 @@ class App extends Component {
     super();
     this.state = {
       pickedMovie: data[0],
-      movieName: "",
-      filteredData: data
+      currentMovieName: ""
     }
     this.handleSetMovie = this.handleSetMovie.bind(this);
     this.handleSortMovie = this.handleSortMovie.bind(this);
-    this.newData = this.newData.bind(this);
+    this.handleFilterMovie = this.handleFilterMovie.bind(this);
   }
 
   handleSetMovie(id) {
@@ -28,27 +28,31 @@ class App extends Component {
   handleSortMovie(itemName) {
     this.setState({
       ...this.state,
-      movieName: itemName
+      currentMovieName: itemName
     })
   }
 
-  newData(movieName) {
-    return (
-      data.filter((oneMovie) => oneMovie.itemName.includes(movieName)));
+  handleFilterMovie(movieName) {
 
+    return (
+      data.filter((movie) => movie.itemName.includes(movieName))
+    );
   }
 
   render() {
-    const { pickedMovie, movieName } = this.state;
+    const { pickedMovie, currentMovieName } = this.state;
     const handleSetMovie = this.handleSetMovie;
-    const filteredData = this.newData(movieName);
+    const filteredData = this.handleFilterMovie(currentMovieName);
     return (
       <div className="App">
-        <input onChange={(event) => (this.handleSortMovie(event.target.value))}></input>
-        {this.newData(movieName).length !== data.length && <button onClick={data}>Refresh</button>}
+        <input className="search" onChange={(event) => (this.handleSortMovie(event.target.value))}></input>
+        {filteredData.length !== data.length && <button onClick={() => {
+          document.querySelector('.search').value = '';
+          this.handleSortMovie('');
+        }
+        }>Refresh</button>}
         <Player movie={pickedMovie} />
         <CardList handleSetMovie={handleSetMovie} data={filteredData} />
-
       </div>
     );
   }

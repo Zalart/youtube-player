@@ -4,3 +4,10 @@
   max-width: 1200px;
   margin: 0 auto;  
 }
+.Like {
+  margin: 1rem;
+  cursor:pointer;
+}
+button, .card {
+  cursor:pointer;
+}

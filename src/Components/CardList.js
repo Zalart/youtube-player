@@ -9,6 +9,7 @@ class CardList extends React.Component {
         const { data, handleSetMovie } = this.props;
         return (
             <div className="CardList">
+                {data.length === 0 && <h2>Нет фильмов по запросу</h2>}
                 { data.map((video, index) => (
                     <Card key={video.itemName + index}
                         itemName={video.itemName}

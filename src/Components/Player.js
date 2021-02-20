@@ -12,7 +12,7 @@ class Player extends Component {
         const { movie } = this.props;
         return (
             <div className="player">
-                <ReactPlayer url={movie.source} />
+                <ReactPlayer url={movie.source} controls />
                 <h2>{movie.itemName}</h2>
                 <span className="Like" onClick={() => {
                     const likeUp = this.state.like + 1;
