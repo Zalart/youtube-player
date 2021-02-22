@@ -2,19 +2,18 @@ import Card from './Card';
 import React from 'react';
 
 class CardList extends React.Component {
-    constructor(props) {
-        super(props);
-    }
+
     render() {
-        const { data, handleSetMovie } = this.props;
+        const { data, handleSetMovie, pickedMovieId } = this.props;
         return (
             <div className="CardList">
                 {data.length === 0 && <h2>Нет фильмов по запросу</h2>}
                 { data.map((video, index) => (
-                    <Card key={video.itemName + index}
-                        itemName={video.itemName}
+                    pickedMovieId !== video.id &&
+                    <Card key={video.id + index}
                         id={video.id}
-                        source={video.source}
+                        thumbnail={video.thumbnail}
+                        title={video.title}
                         handleSetMovie={handleSetMovie} />
                 ))
                 }

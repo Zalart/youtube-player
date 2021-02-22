@@ -1,31 +1,29 @@
+import React from 'react'
 import ReactPlayer from 'react-player';
 import { Component } from 'react';
+import CommentForm from './CommentForm';
 class Player extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            like: 0,
-            dislike: 0
-        }
-    }
     render() {
-        const { movie } = this.props;
+        const { title, description, id, channel, handleSetLikes, handleCommentsSubmit, like, dislike, comments } = this.props;
         return (
+
             <div className="player">
-                <ReactPlayer url={movie.source} controls />
-                <h2>{movie.itemName}</h2>
-                <span className="Like" onClick={() => {
-                    const likeUp = this.state.like + 1;
-                    this.setState({ like: likeUp })
-                }}>👍 {this.state.like} </span>
-                <span className="Like" onClick={() => {
-                    const likeOff = this.state.dislike + 1;
-                    this.setState({ dislike: likeOff })
-                }} >👎 {this.state.dislike}</span>
+                <ReactPlayer url={'https://www.youtube.com/watch?v=' + id} controls />
+                <h2>{title}</h2>
+                <p className="description">{description}</p>
+                <p>{channel}</p>
+                <span className="Like" role="img" aria-label="Like" title="Like" onClick={() => {
+                    handleSetLikes(id, 'like')
+                }}>👍 {like} </span>
+                <span className="Like" role="img" aria-label="Dislike" title="Dislike" onClick={() => {
+                    handleSetLikes(id, 'dislike')
+                }} >👎 {dislike}</span>
+                {/* 
+                <CommentForm handleCommentsSubmit={handleCommentsSubmit} comments={comments} id={id} /> */}
+
             </div>
         );
     }
 }
 
 export default Player;
-
