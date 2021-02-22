@@ -14,9 +14,6 @@ import "./Card.css";
 // }
 
 class Card extends Component {
-    constructor(props) {
-        super(props);
-    }
     render() {
         const { handleSetMovie, itemName, previewImage, id } = this.props;
         return (

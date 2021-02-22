@@ -11,7 +11,6 @@ class App extends Component {
     this.state = {
       pickedMovie: data[0],
       movieName: "",
-      filteredData: data
     }
     this.handleSetMovie = this.handleSetMovie.bind(this);
     this.handleSortMovie = this.handleSortMovie.bind(this);
@@ -44,10 +43,14 @@ class App extends Component {
     const filteredData = this.newData(movieName);
     return (
       <div className="App">
-        <input onChange={(event) => (this.handleSortMovie(event.target.value))}></input>
-        {this.newData(movieName).length !== data.length && <button onClick={data}>Refresh</button>}
-        <Player movie={pickedMovie} />
-        <CardList handleSetMovie={handleSetMovie} data={filteredData} />
+        <div>
+          <div className="search">
+            <input className="searchInput" onChange={(event) => (this.handleSortMovie(event.target.value))}></input>
+            {this.newData(movieName).length !== data.length && <button onClick={() => { document.querySelector(".searchInput").value = ''; this.setState({ movieName: "" }) }}>Refresh</button>}
+          </div>
+          <Player movie={pickedMovie} />
+        </div>
+        <CardList handleSetMovie={handleSetMovie} data={filteredData} isEmpty={filteredData.length === 0} />
 
       </div>
     );

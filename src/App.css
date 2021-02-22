@@ -1,6 +1,11 @@
 
-  .App {
+.App {
   display: flex;
   max-width: 1200px;
   margin: 0 auto;  
+}
+
+.search input{
+width: 500px;
+margin: 20px;
 }

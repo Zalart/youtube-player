@@ -2,11 +2,12 @@
     display: flex;
     font-size: 14px;
     margin: 10px;
+    border: 1px solid black;
 }
 
 .card img {
-    width: 100px;
-    height: 60px;
+    width: 180px;
+    height: 100px;
     margin: 10px;
 }
 
