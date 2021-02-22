@@ -13,10 +13,10 @@ class Player extends Component {
                 <p className="description">{description}</p>
                 <p>{channel}</p>
                 <span className="Like" role="img" aria-label="Like" title="Like" onClick={() => {
-                    handleSetLikes(id, 'like')
+                    handleSetLikes('like')
                 }}>👍 {like} </span>
                 <span className="Like" role="img" aria-label="Dislike" title="Dislike" onClick={() => {
-                    handleSetLikes(id, 'dislike')
+                    handleSetLikes('dislike')
                 }} >👎 {dislike}</span>
                 {/* 
                 <CommentForm handleCommentsSubmit={handleCommentsSubmit} comments={comments} id={id} /> */}

@@ -1,4 +1,5 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import key from "./key.js";
 import './App.css';
 import CardList from "./Components/CardList";
 import Player from "./Components/Player";
@@ -22,7 +23,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    fetch(`https://www.googleapis.com/youtube/v3/search?key=AIzaSyBM5bUlUsH0XaTxxYq_CksFHWQltiumnAQ&maxResults=10&part=snippet&regionCode=RU&chart=mostPopular&type=video&q=FrontEnd`)
+    fetch(`https://www.googleapis.com/youtube/v3/search?key=${key}&maxResults=10&part=snippet&regionCode=RU&chart=mostPopular&type=video&q=FrontEnd`)
       .then(res => res.json())
       .then(
         (result) => {
@@ -58,29 +59,35 @@ class App extends Component {
   }
 
   handleSetMovie(id) {
-    const findMovieById = this.state.movies.find((movie) => movie.id === id)
-    this.setState({
-      pickedMovie: findMovieById
-    });
-  }
 
-  handleSetLikes(id, isLike) {
-    const findMovieIndexById = this.state.movies.findIndex((movie) => movie.id === id);
     this.setState(prev => {
-      const { movies } = prev;
+      const { movies, pickedMovie } = prev;
+      const findMovieById = movies.find((movie) => movie.id === id)
+      const findPickedMovieIndexById = movies.findIndex((movie) => movie.id === pickedMovie.id);
       const nextState = movies.map((ob, index) => {
-        if (index !== findMovieIndexById)
-          return ob;
-        return {
-          ...ob,
-          [isLike]: movies[findMovieIndexById][isLike] + 1,
-        }
+        if (index === findPickedMovieIndexById)
+          return pickedMovie;
+        return ob;
+
       });
+
       return {
-        movies: nextState,
-        pickedMovie: nextState[findMovieIndexById]
+        pickedMovie: findMovieById,
+        movies: nextState
+
       }
     })
+  }
+
+  handleSetLikes(isLike) {
+    this.setState(prev => ({
+      ...prev,
+      pickedMovie: {
+        ...prev.pickedMovie,
+        [isLike]: this.state.pickedMovie[isLike] + 1,
+      }
+    })
+    )
   }
 
   handleCommentSubmit(id, author, comment) {
