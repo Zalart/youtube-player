@@ -3,6 +3,9 @@ import key from "./key.js";
 import './App.css';
 import CardList from "./Components/CardList";
 import Player from "./Components/Player";
+import 'fontsource-roboto';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 
 
 class App extends Component {
@@ -15,7 +18,7 @@ class App extends Component {
       pickedMovie: {},
       currentMovieName: "",
       commentValue: "",
-      requestValue: "Front-End"
+      requestValue: "FrontEnd"
     }
     this.handleSetMovie = this.handleSetMovie.bind(this);
     this.handleSetLikes = this.handleSetLikes.bind(this);
@@ -149,14 +152,14 @@ class App extends Component {
 
       <div className="App">
         <div className="searchbar">
-          <form onSubmit={((event) => this.handleSubmitQuery(event))}><input className="search" placeholder="Search" onChange={(event) => (this.handleChangeQuery(event.target.value))}></input><input type="submit" value="Search movies" /></form>
+          <form onSubmit={((event) => this.handleSubmitQuery(event))}><TextField color="secondary" size="small" id="outlined-basic" label="Search" variant="outlined" className="search" onChange={(event) => (this.handleChangeQuery(event.target.value))}></TextField><Button size="small" variant="contained" color="secondary" type="submit">Search movies</Button></form>
 
-          <input className="search" placeholder="Filter videos" onChange={(event) => (this.handleSortMovie(event.target.value))}></input>
-          {filteredData.length !== this.state.movies.length && <button onClick={() => {
+          <TextField color="secondary" size="small" id="outlined-basic" label="Filter videos" variant="outlined" className="search" onChange={(event) => (this.handleSortMovie(event.target.value))}></TextField>
+          {filteredData.length !== this.state.movies.length && <Button size="small" variant="contained" color="secondary" onClick={() => {
             document.querySelector('.search').value = '';
             this.handleSortMovie('');
           }
-          }>Refresh</button>}
+          }>Refresh</Button>}
         </div>
         <div className="retube">
           <Player handleSetLikes={handleSetLikes} {...pickedMovie} handleCommentSubmit={handleCommentSubmit} handleCommentsChange={handleCommentsChange} />

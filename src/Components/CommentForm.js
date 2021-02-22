@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import "./CommentForm.css";
+import Button from '@material-ui/core/Button';
 
 class CommentForm extends Component {
 
@@ -16,7 +17,7 @@ class CommentForm extends Component {
                 <h3>Make your point</h3>
                 <form onSubmit={handleCommentSubmit} >
                     <textarea name="comment" placeholder="Есть что сказать?" onChange={handleCommentsChange} />
-                    <input type="submit" value="Комментировать" />
+                    <Button type="submit">Комментировать</Button>
                 </form>
             </div>
         );
