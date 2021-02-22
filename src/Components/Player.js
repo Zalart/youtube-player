@@ -4,7 +4,7 @@ import { Component } from 'react';
 import CommentForm from './CommentForm';
 class Player extends Component {
     render() {
-        const { title, description, id, channel, handleSetLikes, handleCommentsSubmit, like, dislike, comments } = this.props;
+        const { title, description, id, channel, handleSetLikes, handleCommentSubmit, handleCommentsChange, like, dislike, comments } = this.props;
         return (
 
             <div className="player">
@@ -18,8 +18,8 @@ class Player extends Component {
                 <span className="Like" role="img" aria-label="Dislike" title="Dislike" onClick={() => {
                     handleSetLikes('dislike')
                 }} >👎 {dislike}</span>
-                {/* 
-                <CommentForm handleCommentsSubmit={handleCommentsSubmit} comments={comments} id={id} /> */}
+
+                <CommentForm handleCommentSubmit={handleCommentSubmit} handleCommentsChange={handleCommentsChange} comments={comments} />
 
             </div>
         );

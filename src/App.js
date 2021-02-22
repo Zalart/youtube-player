@@ -13,16 +13,19 @@ class App extends Component {
       error: null,
       movies: [],
       pickedMovie: {},
-      currentMovieName: ""
+      currentMovieName: "",
+      commentValue: ""
     }
     this.handleSetMovie = this.handleSetMovie.bind(this);
     this.handleSetLikes = this.handleSetLikes.bind(this);
     this.handleSortMovie = this.handleSortMovie.bind(this);
+    this.handleCommentsChange = this.handleCommentsChange.bind(this);
     this.handleCommentSubmit = this.handleCommentSubmit.bind(this);
     this.handleFilterMovie = this.handleFilterMovie.bind(this);
   }
 
   componentDidMount() {
+    alert('New Fetch!');
     fetch(`https://www.googleapis.com/youtube/v3/search?key=${key}&maxResults=10&part=snippet&regionCode=RU&chart=mostPopular&type=video&q=FrontEnd`)
       .then(res => res.json())
       .then(
@@ -89,25 +92,25 @@ class App extends Component {
     })
     )
   }
-
-  handleCommentSubmit(id, author, comment) {
-    const findMovieIndexById = this.state.movies.findIndex((movie) => movie.id === id);
-    this.setState(prev => {
-      const { movies } = prev;
-      const nextState = movies.map((ob, index) => {
-        if (index !== findMovieIndexById)
-          return ob;
-        return {
-          ...ob,
-          comments: this.state.comments.push([[author, comment]])
-        }
-      });
-      return {
-        movies: nextState,
-        pickedMovie: nextState[findMovieIndexById]
-      }
-    })
+  handleCommentsChange(event) {
+    this.setState({ commentValue: event.target.value });
   }
+
+  handleCommentSubmit(event) {
+    event.preventDefault();
+    console.log(this.state.commentValue)
+    this.setState(prev => ({
+      ...prev,
+      pickedMovie: {
+        ...prev.pickedMovie,
+        comments: [...this.state.pickedMovie.comments, this.state.commentValue],
+      }
+
+    })
+    )
+
+  }
+
   handleSortMovie(itemName) {
     this.setState({
       ...this.state,
@@ -127,6 +130,7 @@ class App extends Component {
     const handleSetMovie = this.handleSetMovie;
     const handleSetLikes = this.handleSetLikes;
     const handleCommentSubmit = this.handleCommentSubmit;
+    const handleCommentsChange = this.handleCommentsChange;
     const filteredData = this.handleFilterMovie(currentMovieName);
     return (
 
@@ -138,7 +142,7 @@ class App extends Component {
           this.handleSortMovie('');
         }
         }>Refresh</button>}
-        <Player handleSetLikes={handleSetLikes} {...pickedMovie} handleCommentSubmit={handleCommentSubmit} />
+        <Player handleSetLikes={handleSetLikes} {...pickedMovie} handleCommentSubmit={handleCommentSubmit} handleCommentsChange={handleCommentsChange} />
 
         <CardList handleSetMovie={handleSetMovie} data={filteredData} pickedMovieId={pickedMovie.id} />
       </div>

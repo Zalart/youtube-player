@@ -1,20 +1,21 @@
-/* import React, { Component } from 'react';
+import React, { Component } from 'react';
 import "./CommentForm.css";
 
 class CommentForm extends Component {
 
     render() {
-        const { comments, id, handleCommentSubmit } = this.props;
+        const { handleCommentSubmit, handleCommentsChange, comments = [] } = this.props;
+        const listComments = comments.map((comment, idx) =>
+            <div className="comment" key={idx}>{comment}</div>
+        );
         return (
             <div className="CommentForm">
                 <h3>Comments</h3>
-                <div className="commentsContainer">{this.props.comments}</div>
+                {listComments}
                 <hr />
                 <h3>Make your point</h3>
-                <form onSubmit={handleCommentSubmit(id, target.name, comments[1])}>
-                    <label htmlFor="name">Имя</label>
-                    <input id="name" name="author" type="text" placeholder="Имя"></input>
-                    <textarea name="comment" placeholder="Есть что сказать?" value='test' />
+                <form onSubmit={handleCommentSubmit} >
+                    <textarea name="comment" placeholder="Есть что сказать?" onChange={handleCommentsChange} />
                     <input type="submit" value="Комментировать" />
                 </form>
             </div>
@@ -23,4 +24,4 @@ class CommentForm extends Component {
     }
 }
 
-export default CommentForm; */
+export default CommentForm;
