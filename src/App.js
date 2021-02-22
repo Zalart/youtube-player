@@ -151,15 +151,15 @@ class App extends Component {
     return (
 
       <div className="App">
-        <div className="searchbar">
-          <form onSubmit={((event) => this.handleSubmitQuery(event))}><TextField color="secondary" size="small" id="outlined-basic" label="Search" variant="outlined" className="search" onChange={(event) => (this.handleChangeQuery(event.target.value))}></TextField><Button size="small" variant="contained" color="secondary" type="submit">Search movies</Button></form>
 
-          <TextField color="secondary" size="small" id="outlined-basic" label="Filter videos" variant="outlined" className="search" onChange={(event) => (this.handleSortMovie(event.target.value))}></TextField>
-          {filteredData.length !== this.state.movies.length && <Button size="small" variant="contained" color="secondary" onClick={() => {
-            document.querySelector('.search').value = '';
-            this.handleSortMovie('');
-          }
-          }>Refresh</Button>}
+        <div className="searchbar"><div className="col">
+          <form onSubmit={((event) => this.handleSubmitQuery(event))}><TextField color="secondary" size="small" id="outlined-basic" label="Search" variant="outlined" className="search" onChange={(event) => (this.handleChangeQuery(event.target.value))}></TextField><Button size="medium" variant="contained" color="secondary" type="submit">Search movies</Button></form></div>
+          <div className="col"> <TextField width="300px" color="secondary" size="small" id="outlined-basic" label="Filter videos" variant="outlined" className="search" onChange={(event) => (this.handleSortMovie(event.target.value))}></TextField>
+            {filteredData.length !== this.state.movies.length && <Button size="medium" variant="contained" color="secondary" onClick={() => {
+              document.querySelector('.search').value = '';
+              this.handleSortMovie('');
+            }
+            }>Refresh</Button>}</div>
         </div>
         <div className="retube">
           <Player handleSetLikes={handleSetLikes} {...pickedMovie} handleCommentSubmit={handleCommentSubmit} handleCommentsChange={handleCommentsChange} />

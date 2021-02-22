@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import "./CommentForm.css";
 import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 
 class CommentForm extends Component {
 
@@ -16,8 +17,12 @@ class CommentForm extends Component {
                 <hr />
                 <h3>Make your point</h3>
                 <form onSubmit={handleCommentSubmit} >
-                    <textarea name="comment" placeholder="Есть что сказать?" onChange={handleCommentsChange} />
-                    <Button type="submit">Комментировать</Button>
+                    <TextField
+                        id="outlined-multiline-static"
+                        multiline
+                        rows={5}
+                        variant="outlined" color="secondary" size="small" label="Ваш комментарий..." name="comment" onChange={handleCommentsChange} />
+                    <Button size="medium" variant="contained" color="secondary" type="submit">Комментировать</Button>
                 </form>
             </div>
         );
