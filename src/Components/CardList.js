@@ -1,4 +1,5 @@
 import Card from './Card';
+import './CardList.css'
 import React from 'react';
 
 class CardList extends React.Component {
@@ -14,6 +15,7 @@ class CardList extends React.Component {
                         id={video.id}
                         thumbnail={video.thumbnail}
                         title={video.title}
+                        channel={video.channel}
                         handleSetMovie={handleSetMovie} />
                 ))
                 }

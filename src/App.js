@@ -14,19 +14,21 @@ class App extends Component {
       movies: [],
       pickedMovie: {},
       currentMovieName: "",
-      commentValue: ""
+      commentValue: "",
+      requestValue: "Front-End"
     }
     this.handleSetMovie = this.handleSetMovie.bind(this);
     this.handleSetLikes = this.handleSetLikes.bind(this);
     this.handleSortMovie = this.handleSortMovie.bind(this);
+    this.handleChangeQuery = this.handleChangeQuery.bind(this);
+    this.handleSubmitQuery = this.handleSubmitQuery.bind(this);
     this.handleCommentsChange = this.handleCommentsChange.bind(this);
     this.handleCommentSubmit = this.handleCommentSubmit.bind(this);
     this.handleFilterMovie = this.handleFilterMovie.bind(this);
   }
 
   componentDidMount() {
-    alert('New Fetch!');
-    fetch(`https://www.googleapis.com/youtube/v3/search?key=${key}&maxResults=10&part=snippet&regionCode=RU&chart=mostPopular&type=video&q=FrontEnd`)
+    fetch(`https://www.googleapis.com/youtube/v3/search?key=${key}&maxResults=10&part=snippet&regionCode=RU&chart=mostPopular&type=video&q=${this.state.requestValue}`)
       .then(res => res.json())
       .then(
         (result) => {
@@ -61,6 +63,8 @@ class App extends Component {
       )
   }
 
+
+
   handleSetMovie(id) {
 
     this.setState(prev => {
@@ -71,7 +75,6 @@ class App extends Component {
         if (index === findPickedMovieIndexById)
           return pickedMovie;
         return ob;
-
       });
 
       return {
@@ -92,6 +95,16 @@ class App extends Component {
     })
     )
   }
+
+  handleChangeQuery(eventValue) {
+    this.setState({ requestValue: eventValue });
+  }
+
+  handleSubmitQuery(event) {
+    event.preventDefault();
+    this.componentDidMount();
+  }
+
   handleCommentsChange(event) {
     this.setState({ commentValue: event.target.value });
   }
@@ -135,16 +148,21 @@ class App extends Component {
     return (
 
       <div className="App">
+        <div className="searchbar">
+          <form onSubmit={((event) => this.handleSubmitQuery(event))}><input className="search" placeholder="Search" onChange={(event) => (this.handleChangeQuery(event.target.value))}></input><input type="submit" value="Search movies" /></form>
 
-        <input className="search" onChange={(event) => (this.handleSortMovie(event.target.value))}></input>
-        {filteredData.length !== this.state.movies.length && <button onClick={() => {
-          document.querySelector('.search').value = '';
-          this.handleSortMovie('');
-        }
-        }>Refresh</button>}
-        <Player handleSetLikes={handleSetLikes} {...pickedMovie} handleCommentSubmit={handleCommentSubmit} handleCommentsChange={handleCommentsChange} />
+          <input className="search" placeholder="Filter videos" onChange={(event) => (this.handleSortMovie(event.target.value))}></input>
+          {filteredData.length !== this.state.movies.length && <button onClick={() => {
+            document.querySelector('.search').value = '';
+            this.handleSortMovie('');
+          }
+          }>Refresh</button>}
+        </div>
+        <div className="retube">
+          <Player handleSetLikes={handleSetLikes} {...pickedMovie} handleCommentSubmit={handleCommentSubmit} handleCommentsChange={handleCommentsChange} />
 
-        <CardList handleSetMovie={handleSetMovie} data={filteredData} pickedMovieId={pickedMovie.id} />
+          <CardList handleSetMovie={handleSetMovie} data={filteredData} pickedMovieId={pickedMovie.id} />
+        </div>
       </div>
     );
   }

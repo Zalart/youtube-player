@@ -4,11 +4,15 @@ import "./Card.css";
 class Card extends Component {
 
     render() {
-        const { handleSetMovie, title, id, thumbnail } = this.props;
+        const { handleSetMovie, title, id, thumbnail, channel } = this.props;
         return (
             <div className="card" onClick={() => handleSetMovie(id)}>
                 <img src={thumbnail} alt="img" />
-                <p className="itemName">{title}</p>
+                <div className="cardtext">
+                    <p className="title">{title}</p>
+                    <p className="channel">{channel}</p>
+                </div>
+
             </div>
         );
 
